@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>BWare</title>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/BwareIcon.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/BwareIcon.png') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+
+  <div class="left">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <nav class="top-menu">
+    <a href="#">Início</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="profile">
+    <div class="avatar">👤</div>
+    <h3 id="sidebarName">Usuário</h3>
+  </div>
+
+  <nav>
+    <a href="#" onclick="abrirInfo()">👤 Informações</a>
+    <a href="#" onclick="abrirPedidos()">📦 Pedidos</a>
+    <a href="#" onclick="logout()">🚪 Sair</a>
+  </nav>
+
+</aside>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay">
+    <img src="{{ url_for('static', filename='img/bwarelogoWhite.png') }}" class="hero-logo">
+     <p class="hero-text">
+      A Solução digital que você precisa
+    </p>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="services">
+
+  <h2>Nossos Serviços</h2>
+
+  <div class="cards">
+
+    <div class="card-service">
+      <h3>Site Simples</h3>
+      <p class="price">R$650</p>
+      <span class="monthly">R$55,90/mês</span>
+
+      <ul>
+        <li>✔ Domínio próprio</li>
+        <li>✔ Hospedagem inclusa</li>
+        <li>✔ Design moderno</li>
+        <li>✔ Responsivo (celular)</li>
+        <li>✔ Google Meu Negócio</li>
+      </ul>
+
+      <button onclick="comprar('Site Simples', 650)">Comprar</button>
+    </div>
+
+    <div class="card-service highlight">
+      <h3>E-Commerce</h3>
+      <p class="price">R$1000</p>
+      <span class="monthly">R$60/mês</span>
+
+      <ul>
+        <li>✔ Loja virtual completa</li>
+        <li>✔ Domínio próprio</li>
+        <li>✔ Hospedagem inclusa</li>
+        <li>✔ Integração com pagamentos</li>
+        <li>✔ Google Meu Negócio</li>
+      </ul>
+
+      <button onclick="comprar('E-Commerce', 1000)">Comprar</button>
+    </div>
+
+    <div class="card-service">
+      <h3>Sistema</h3>
+      <p class="price">R$2000</p>
+      <span class="monthly">R$65/mês</span>
+
+      <ul>
+        <li>✔ Sistema personalizado</li>
+        <li>✔ Servidor dedicado</li>
+        <li>✔ Banco de dados integrado</li>
+        <li>✔ Painel administrativo</li>
+        <li>✔ Segurança Avançada</li>
+      </ul>
+
+      <button onclick="comprar('Sistema', 2000)">Comprar</button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PORTFÓLIO -->
+<section id="portfolio" class="portfolio">
+
+  <h2>Nosso Portfólio</h2>
+
+  <div class="portfolio-cards">
+
+    <!-- PROJETO 1 -->
+    <div class="portfolio-card">
+      <h3 class="portfolio-title">Blog GameDev</h3>
+
+      <div class="slider">
+        <img src="/static/img/gamedevSite.jpg" class="slide active">
+        <img src="/static/img/gamedevsite2.jpg" class="slide">
+        <img src="/static/img/gamedevsite3.jpg" class="slide">
+
+        <button class="arrow left" onclick="prevSlide(this)">❮</button>
+        <button class="arrow right" onclick="nextSlide(this)">❯</button>
+      </div>
+
+      <div class="dots">
+        <span onclick="changeSlide(this, 0)" class="active"></span>
+        <span onclick="changeSlide(this, 1)"></span>
+        <span onclick="changeSlide(this, 2)"></span>
+      </div>
+    </div>
+
+    <!-- PROJETO 2 -->
+    <div class="portfolio-card">
+      <h3 class="portfolio-title">Site de Tecnologia</h3>
+      <div class="slider">
+        <img src="/static/img/neotechSite.jpg" class="slide active">
+      </div>
+    </div>
+
+    <!-- PROJETO 3 -->
+    <div class="portfolio-card">
+      <h3 class="portfolio-title">Site de Contabilidade</h3>
+
+      <div class="slider">
+        <img src="/static/img/marchelSite.png" class="slide active">
+        <img src="/static/img/marchelcalcSite.png" class="slide">
+
+        <button class="arrow left" onclick="prevSlide(this)">❮</button>
+        <button class="arrow right" onclick="nextSlide(this)">❯</button>
+      </div>
+
+      <div class="dots">
+        <span onclick="changeSlide(this, 0)" class="active"></span>
+        <span onclick="changeSlide(this, 1)"></span>
+      </div>
+    </div>
+
+    <!-- PROJETO 4 -->
+    <div class="portfolio-card">
+      <h3 class="portfolio-title">E-Commerce Loja de Roupas</h3>
+
+      <div class="slider">
+        <img src="/static/img/lamariaSite.png" class="slide active">
+        <img src="/static/img/lamariasobreSite.png" class="slide">
+
+        <button class="arrow left" onclick="prevSlide(this)">❮</button>
+        <button class="arrow right" onclick="nextSlide(this)">❯</button>
+      </div>
+
+      <div class="dots">
+        <span onclick="changeSlide(this, 0)" class="active"></span>
+        <span onclick="changeSlide(this, 1)"></span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="contact">
+
+  <h2>Contatos</h2>
+  
+  <div class="contact-icons">
+
+    <a href="https://wa.me/+5524974009200" target="_blank">
+      <img src="/static/img/whatsBW.png">
+    </a>
+
+    <a href="https://www.instagram.com/businessoftware?igsh=eGYwbWQ3dXpyMXY%3D&utm_source=qr" target="_blank">
+      <img src="/static/img/igBW.png">
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?id=61588989308184" target="_blank">
+      <img src="/static/img/FaceBW.png">
+    </a>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2026 BWare. Todos os direitos reservados.</p>
+    <p>Desenvolvido por BWare • Soluções em Sites, Sistemas e E-commerce</p>
+  </div>
+</footer>
+
+<!-- ============================= -->
+<!-- 📦 MODAL PEDIDOS -->
+<!-- ============================= -->
+<div id="pedidosModal" class="modal hidden">
+
+  <div class="modal-content">
+
+    <h2>Seus Pedidos</h2>
+
+    <div id="listaPedidos"></div>
+
+    <span class="close" onclick="fecharPedidos()">✖</span>
+
+  </div>
+
+</div>
+
+<!-- ============================= -->
+<!-- 👤 MODAL INFORMAÇÕES -->
+<!-- ============================= -->
+<div id="infoModal" class="modal hidden">
+
+  <div class="modal-content">
+
+    <h2>Suas Informações</h2>
+
+    <div id="infoUsuario"></div>
+
+    <span class="close" onclick="fecharInfo()">✖</span>
+
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+
+</body>
+</html>

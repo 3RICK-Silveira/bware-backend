@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <!-- 🔥 CSS vindo da pasta static -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='loginstyleBW.css') }}">
+</head>
+<body>
+  <img src="{{ url_for('static', filename='img/logoCLEAN.png') }}" class="logo-glow">
+  <div class="container">
+    <div class="card" id="card">
+
+      <!-- LOGIN -->
+      <div class="form login">
+        <h2>Entrar</h2>
+
+        <input 
+          type="text" 
+          placeholder="CPF" 
+          id="loginCpf"
+          oninput="formatCPF(this)"
+          maxlength="14"
+          autocomplete="username"
+          required
+        >
+
+        <input 
+          type="password" 
+          placeholder="Senha" 
+          id="loginSenha"
+          autocomplete="current-password"
+          required
+        >
+
+        <button onclick="login()">Entrar</button>
+        <p onclick="toggle()">Criar conta</p>
+      </div>
+
+      <!-- CADASTRO -->
+      <div class="form cadastro">
+        <h2>Criar Conta</h2>
+
+        <input 
+          type="text" 
+          placeholder="Nome" 
+          required
+        >
+
+        <input 
+          type="text" 
+          placeholder="CPF"
+          oninput="formatCPF(this)"
+          maxlength="14"
+          required
+        >
+
+        <input 
+          type="email" 
+          placeholder="Email"
+          autocomplete="email"
+          required
+        >
+
+        <input 
+          type="password" 
+          placeholder="Senha"
+          autocomplete="new-password"
+          required
+        >
+
+        <button onclick="cadastrar()">Cadastrar</button>
+        <p onclick="toggle()">Já tenho conta</p>
+      </div>
+
+    </div>
+  </div>
+  <!-- 🔥 JS vindo da pasta static -->
+  <script src="{{ url_for('static', filename='loginBW.js') }}"></script>
+
+</body>
+</html>

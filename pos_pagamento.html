@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento Confirmado | BWare</title>
+
+  <style>
+            /* RESET */
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* FUNDO */
+        body {
+        height: 100vh;
+        background: linear-gradient(135deg, #0f172a, #020617);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        }
+
+        /* CARD PRINCIPAL */
+        .container {
+        width: 100%;
+        max-width: 500px;
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 0 40px rgba(0, 81, 255, 0.15);
+        animation: fadeIn 0.6s ease;
+        }
+
+        /* TÍTULO */
+        .container h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 28px;
+        color: #ffffff;
+        }
+
+        /* SUBTEXTO */
+        .container p {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #cbd5f5;
+        font-size: 14px;
+        }
+
+        /* CÓDIGO DO PEDIDO */
+        .codigo {
+        background: #020617;
+        border: 1px solid #0e27a5;
+        padding: 12px;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        }
+
+        /* INPUTS */
+        input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: #020617;
+        color: #fff;
+        font-size: 14px;
+        transition: 0.3s;
+        }
+
+        /* FOCUS */
+        input:focus, textarea:focus {
+        border: 1px solid #00072c;
+        box-shadow: 0 0 10px rgba(0, 81, 255, 0.4);
+        }
+
+        /* TEXTAREA */
+        textarea {
+        resize: none;
+        height: 100px;
+        }
+
+        /* BOTÃO */
+        button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #071c86, #00072c);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        }
+
+        /* HOVER */
+        button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 20px rgba(0, 81, 255, 0.5);
+        }
+
+        /* DISABLED */
+        button:disabled {
+        background: gray;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+        }
+
+        /* MENSAGEM DE SUCESSO */
+        .sucesso {
+        margin-top: 15px;
+        text-align: center;
+        color: #00072c;
+        font-weight: bold;
+        display: none;
+        }
+
+        /* ANIMAÇÃO */
+        @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Pagamento Confirmado!</h1>
+    <p>Seu pedido foi criado com sucesso.</p>
+
+    <div class="codigo" id="codigoPedido">
+      ---
+    </div>
+
+    <p>Agora precisamos de alguns detalhes para começar seu projeto 👇</p>
+
+    <div class="input-group">
+      <label>Seu WhatsApp (obrigatório)</label>
+      <input type="text" id="whatsapp" placeholder="(XX) XXXXX-XXXX">
+    </div>
+
+    <div class="input-group">
+        <label>Seu Email (obrigatório)</label>
+        <input type="email" id="email" placeholder="seuemail@exemplo.com">
+    </div>
+
+    <div class="input-group">
+      <label>Descrição do projeto</label>
+      <textarea id="descricao" placeholder="Ex: Quero um site para minha empresa de roupas..."></textarea>
+    </div>
+
+    <button id="btnEnviar" onclick="finalizarPedido()">Finalizar Pedido</button>
+    <p id="msgSucesso" class="sucesso"></p>
+  </div>
+
+  <script>
+        //PEGAR CÓDIGO DO PEDIDO
+        const params = new URLSearchParams(window.location.search);
+        const codigo = params.get("external_reference");
+
+        if (codigo) {
+        const el = document.getElementById("codigoPedido");
+        if (el) el.innerText = codigo;
+        }
+
+        // =============================
+        // 📩 FINALIZAR PEDIDO
+        // =============================
+        async function finalizarPedido() {
+        const numero = document.getElementById("whatsapp").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const descricao = document.getElementById("descricao").value.trim();
+        const btn = document.getElementById("btnEnviar");
+        const sucessoMsg = document.getElementById("msgSucesso");
+
+        if (!numero || !email) {
+            alert("Preencha WhatsApp e Email!");
+            return;
+        }
+
+        if (!codigo) {
+            alert("Erro: código do pedido não encontrado.");
+            return;
+        }
+
+        try {
+            // 🔒 trava botão
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            // 📡 envia pro backend
+            const response = await fetch("/finalizar_pedido", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                codigo: codigo,
+                whatsapp: numero,
+                descricao: descricao,
+                email: email
+            })
+            });
+
+            const data = await response.json();
+
+            if (data.msg) {
+            // ✅ mostra sucesso
+            sucessoMsg.style.display = "block";
+            sucessoMsg.innerText = "Pedido enviado com sucesso!";
+
+            // 📲 abre WhatsApp automático (opcional)
+            const texto =
+                `*Novo pedido BWare!\n\n` +
+                `*Código: ${codigo}\n` +
+                `*WhatsApp: ${numero}\n` +
+                `*Email: ${email}\n\n` +
+                `*Descrição:\n${descricao}`;
+                
+            const msg = encodeURIComponent(texto);
+
+           const numeroLimpo = "5524974009200";
+
+            window.open(`https://wa.me/${numeroLimpo}?text=${msg}`, "_blank");
+
+            setTimeout(() => {
+                window.location.replace("/dashboard");
+            }, 2500);
+
+            } else {
+            alert("Erro ao enviar pedido.");
+            btn.disabled = false;
+            btn.innerText = "Enviar Pedido";
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert("Erro de conexão.");
+            btn.disabled = false;
+            btn.innerText = "Enviar Pedido";
+        }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const whatsappInput = document.getElementById("whatsapp");
+
+            if (!whatsappInput) return;
+
+            whatsappInput.addEventListener("input", (e) => {
+                let value = e.target.value.replace(/\D/g, "");
+
+                value = value.substring(0, 11);
+
+                if (value.length > 10) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+                } else {
+                    value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+                }
+
+                e.target.value = value;
+            });
+        });
+  </script>
+
+</body>
+</html>
