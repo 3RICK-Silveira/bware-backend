@@ -201,9 +201,9 @@ def criar_pagamento():
 
             # 🔥 REDIRECIONAMENTO CORRETO AGORA
             "back_urls": {
-                "success": "https://occupier-marmalade-uncloak.ngrok-free.dev/pos-pagamento",
-                "failure": "https://occupier-marmalade-uncloak.ngrok-free.dev/dashboard",
-                "pending": "https://occupier-marmalade-uncloak.ngrok-free.dev/dashboard"
+                "success": "bware-backend-production.up.railway.app/pos-pagamento",
+                "failure": "bware-backend-production.up.railway.app/dashboard",
+                "pending": "bware-backend-production.up.railway.app/dashboard"
             },
             "auto_return": "approved"
         }
