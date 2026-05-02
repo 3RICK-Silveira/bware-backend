@@ -168,7 +168,7 @@ async function comprar(produto, preco) {
   }
 
   try {
-    const response = await fetch("/criar_pagamento", {
+    const response = await fetch("https://bware-backend-production.up.railway.app/criar_pagamento", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
