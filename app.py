@@ -201,9 +201,9 @@ def criar_pagamento():
 
             # 🔥 REDIRECIONAMENTO CORRETO AGORA
             "back_urls": {
-                "success": "bware-backend-production.up.railway.app/pos-pagamento",
-                "failure": "bware-backend-production.up.railway.app/dashboard",
-                "pending": "bware-backend-production.up.railway.app/dashboard"
+                "success": "https://bware-backend-production.up.railway.app/pos-pagamento",
+                "failure": "https://bware-backend-production.up.railway.app/dashboard",
+                "pending": "https://bware-backend-production.up.railway.app/dashboard"
             },
             "auto_return": "approved"
         }
@@ -329,7 +329,7 @@ def listar_pedidos():
 # ==============================
 # 🚀 RUN
 # ==============================
-    import os
+import os
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
