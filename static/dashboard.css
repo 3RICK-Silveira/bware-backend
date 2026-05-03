@@ -143,7 +143,7 @@ body {
 .hero {
   height: 75vh;
   margin-top: 70px;
-  background: url("/static/img/bluesky.png") center/cover no-repeat;
+  background: url("../static/img/bluesky.png") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
