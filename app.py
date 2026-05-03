@@ -6,7 +6,7 @@ import mercadopago
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://businessoftware.com.br"])
 
 # 🔑 TOKEN MERCADO PAGO
 sdk = mercadopago.SDK("APP_USR-1884810688336769-042512-8999a1739a1e4141696782c44adc72ea-3354519196")
