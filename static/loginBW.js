@@ -64,7 +64,7 @@ async function login() {
       localStorage.setItem("isAdmin", data.admin ? "true" : "false");
 
       // 🚀 vai pro dashboard
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard.html";
     }
 
   } catch (erro) {
