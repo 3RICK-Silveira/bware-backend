@@ -1,3 +1,5 @@
+const API = "https://bware-backend-production.up.railway.app";
+
 function toggle() {
   document.getElementById("card").classList.toggle("active");
 }
@@ -36,7 +38,7 @@ async function login() {
   }
 
   try {
-    let res = await fetch("/login", {
+    let res = await fetch(`${API}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -95,7 +97,7 @@ async function cadastrar() {
   }
 
   try {
-    let res = await fetch("/cadastrar", {
+    let res = await fetch(`${API}/cadastrar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
