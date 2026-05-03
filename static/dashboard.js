@@ -1,3 +1,5 @@
+const API = "https://bware-backend-production.up.railway.app";
+
 // ☰ abrir/fechar menu
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
@@ -56,7 +58,7 @@ function falarWhatsApp(codigo) {
     `Olá, acabei de fazer um pedido na BWare!\nCódigo: ${codigo}`
   );
 
-  window.open(`https://wa.me/SEUNUMERO?text=${msg}`, "_blank");
+  window.open(`https://wa.me/5524974009200text=${msg}`, "_blank");
 }
 
 //Listar Pedidos
@@ -67,10 +69,10 @@ async function carregarPedidos() {
 
     if (!email && !isAdmin) return;
 
-    let url = `/pedidos?email=${email}`;
+    let url = `${API}/pedidos?email=${email}`;
 
     if (isAdmin) {
-      url = `/pedidos?admin=true`;
+      url = `${API}/pedidos?admin=true`;
     }
 
     const response = await fetch(url);
@@ -168,7 +170,7 @@ async function comprar(produto, preco) {
   }
 
   try {
-    const response = await fetch("https://bware-backend-production.up.railway.app/criar_pagamento", {
+    const response = await fetch(`${API}/criar_pagamento`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
